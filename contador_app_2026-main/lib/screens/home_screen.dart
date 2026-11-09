@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int contador = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    
+    const tamano30 = TextStyle(fontSize: 25);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Contador', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.blue,
+
+        elevation: 20,
+      ),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Numero de cliente', style: tamano30),
+            Text('$contador', style: tamano30),
+          ],
+        ),
+        //Text('Hola mundo desde HomeScreen'),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          print('Pulsacion registrada');
+          contador++;
+          setState(() {});
+          print('$contador');
+        },
+      ),
+    );
+  }
+}
