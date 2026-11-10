@@ -10,9 +10,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int contador = 0;
 
+  void incrementar() {
+    contador++;
+    setState(() {});
+  }
+
+  void decrementar() {
+    contador--;
+    setState(() {});
+  }
+
+  void resetear() {
+    contador = 0;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    
     const tamano30 = TextStyle(fontSize: 25);
 
     return Scaffold(
@@ -27,22 +41,63 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Numero de cliente', style: tamano30),
+            Text('Número de clics', style: tamano30),
             Text('$contador', style: tamano30),
           ],
         ),
         //Text('Hola mundo desde HomeScreen'),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          print('Pulsacion registrada');
-          contador++;
-          setState(() {});
-          print('$contador');
-        },
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: CustomFloatingActionButton(
+        incrementarFn: incrementar,
+        decrementarFn: decrementar,
+        resetearFn: resetear,
       ),
+    );
+  }
+}
+
+class CustomFloatingActionButton extends StatelessWidget {
+  final Function incrementarFn;
+  final Function decrementarFn;
+  final Function resetearFn;
+
+  const CustomFloatingActionButton({
+    Key? key,
+    required this.incrementarFn,
+    required this.decrementarFn,
+    required this.resetearFn,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FloatingActionButton(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          child: Icon(Icons.remove),
+          //child: Text("Añadir"),
+          onPressed: () => decrementarFn(),
+        ),
+
+        FloatingActionButton(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          child: Text("0"),
+          //child: Text("Añadir"),
+          onPressed: () => resetearFn(),
+        ),
+
+        FloatingActionButton(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          child: Icon(Icons.add),
+          //child: Text("Añadir"),
+          onPressed: () => incrementarFn(),
+        ),
+      ],
     );
   }
 }
